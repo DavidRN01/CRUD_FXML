@@ -93,6 +93,23 @@ public class PedidosController implements Initializable {
 
     @FXML
     private void listarTodo(ActionEvent event) {
+        
+        ObservableList<Pedido> contenido = FXCollections.observableArrayList();
+        tabla.setItems(contenido);
+        
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        
+        Query q = s.createQuery("FROM Pedido", Pedido.class);
+        ArrayList<Pedido> resultado = (ArrayList<Pedido>) q.list();
+        
+        contenido.addAll(resultado);
+        
     }
 
     @FXML
