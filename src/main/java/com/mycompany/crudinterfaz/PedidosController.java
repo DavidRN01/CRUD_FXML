@@ -89,6 +89,26 @@ public class PedidosController implements Initializable {
 
     @FXML
     private void listarHoy(ActionEvent event) {
+        
+        java.util.Date ahora = new java.util.Date();
+        java.sql.Date fechaActual = new java.sql.Date(ahora.getTime());
+        
+        ObservableList<Pedido> contenido = FXCollections.observableArrayList();
+        tabla.setItems(contenido);
+        
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        Query q = s.createQuery("FROM Pedido p WHERE p.estado = 'SIN ENTREGAR' AND p.fecha = :fecha", Pedido.class);
+        q.setParameter("fecha", fechaActual);
+        ArrayList<Pedido> resultado = (ArrayList<Pedido>) q.list();
+        
+        contenido.addAll(resultado);
+        
     }
 
     @FXML
