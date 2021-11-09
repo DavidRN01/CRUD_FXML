@@ -162,10 +162,21 @@ public class PedidosController implements Initializable {
         s.update(pedido);
         t.commit();
         
+        
+        
     }
 
     @FXML
     private void borrarPedido(ActionEvent event) {
+        
+        Pedido pedidoSeleccionado = tabla.getSelectionModel().getSelectedItem();
+        
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = s.beginTransaction();
+        Pedido pedido = s.load(Pedido.class, pedidoSeleccionado.getId());
+        s.remove(pedido);
+        t.commit();
+        
     }
 
     @FXML
