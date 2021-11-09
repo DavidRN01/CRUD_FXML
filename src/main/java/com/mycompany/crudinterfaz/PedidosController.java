@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -61,6 +62,8 @@ public class PedidosController implements Initializable {
     private TableColumn<Pedido, Date> colFecha;
     @FXML
     private TableColumn<Pedido, String> colEstado;
+    @FXML
+    private Label lblNumero;
 
     /**
      * Initializes the controller class.
@@ -75,6 +78,17 @@ public class PedidosController implements Initializable {
         colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         
         actualizar();
+        
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    actualizar();
+                });
+            }
+        };
+        timer.scheduleAtFixedRate(task, 0, 5000);
         
     }    
 
@@ -103,18 +117,11 @@ public class PedidosController implements Initializable {
     @FXML
     private void listarHoy(ActionEvent event) {
         
-        java.util.Date ahora = new java.util.Date();
-        java.sql.Date fechaActual = new java.sql.Date(ahora.getTime());
-        
-        ObservableList<Pedido> contenido = FXCollections.observableArrayList();
-        tabla.setItems(contenido);
-        
-        Session s = HibernateUtil.getSessionFactory().openSession();
-        Query q = s.createQuery("FROM Pedido p WHERE p.estado = 'SIN ENTREGAR' AND p.fecha = :fecha", Pedido.class);
-        q.setParameter("fecha", fechaActual);
-        ArrayList<Pedido> resultado = (ArrayList<Pedido>) q.list();
-        
-        contenido.addAll(resultado);
+        try {
+            App.setRoot("comandasHoy");
+        } catch (IOException ex) {
+            Logger.getLogger(CartaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 
@@ -167,6 +174,7 @@ public class PedidosController implements Initializable {
         
         Query q = s.createQuery("FROM Pedido", Pedido.class);
         ArrayList<Pedido> resultado = (ArrayList<Pedido>) q.list();
+        lblNumero.setText("Hay "+resultado.size()+" pedidos");
         
         contenido.addAll(resultado);
     }

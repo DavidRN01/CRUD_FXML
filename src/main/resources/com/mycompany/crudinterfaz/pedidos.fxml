@@ -40,11 +40,22 @@
    <top>
       <BorderPane BorderPane.alignment="CENTER">
          <center>
-            <Label text="Encargos de Bocatas" textAlignment="CENTER">
-               <font>
-                  <Font name="Cooper Black" size="37.0" />
-               </font>
-            </Label>
+            <BorderPane>
+               <center>
+                  <Label text="Encargos de Bocatas" textAlignment="CENTER">
+                     <font>
+                        <Font name="Cooper Black" size="37.0" />
+                     </font>
+                  </Label>
+               </center>
+               <bottom>
+                  <Label fx:id="lblNumero" text="numero de pedidos" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font name="Cooper Black" size="16.0" />
+                     </font>
+                  </Label>
+               </bottom>
+            </BorderPane>
          </center>
          <left>
             <ImageView fitHeight="137.0" fitWidth="242.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
