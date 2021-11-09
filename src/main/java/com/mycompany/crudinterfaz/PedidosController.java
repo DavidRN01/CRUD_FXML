@@ -81,6 +81,9 @@ public class PedidosController implements Initializable {
 
     @FXML
     private void mostrarCarta(ActionEvent event) {
+        
+        
+        
     }
 
     @FXML
