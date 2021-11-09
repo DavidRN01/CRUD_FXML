@@ -5,10 +5,13 @@
  */
 package com.mycompany.crudinterfaz;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -82,7 +85,11 @@ public class PedidosController implements Initializable {
     @FXML
     private void mostrarCarta(ActionEvent event) {
         
-        
+        try {
+            App.setRoot("carta");
+        } catch (IOException ex) {
+            Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

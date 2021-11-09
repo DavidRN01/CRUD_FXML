@@ -31,21 +31,16 @@ public class Pedido implements Serializable {
     private double precio;
     private Date fecha;
     private String estado;
-    
-    @ManyToOne
-    @JoinColumn(name="producto_id")
-    private Carta producto;
 
     public Pedido() {
     }
 
-    public Pedido(Long id, String nombre, double precio, Date fecha, String estado, Carta producto) {
+    public Pedido(Long id, String nombre, double precio, Date fecha, String estado) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.fecha = fecha;
         this.estado = estado;
-        this.producto = producto;
     }
 
     public Long getId() {
@@ -88,18 +83,11 @@ public class Pedido implements Serializable {
         this.estado = estado;
     }
 
-    public Carta getProducto() {
-        return producto;
-    }
-
-    public void setProducto(Carta producto) {
-        this.producto = producto;
-    }
-
     @Override
     public String toString() {
-        return "Pedido{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", fecha=" + fecha + ", estado=" + estado + ", producto=" + producto + '}';
+        return "Pedido{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", fecha=" + fecha + ", estado=" + estado + '}';
     }
+
 
     
     

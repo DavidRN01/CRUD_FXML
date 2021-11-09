@@ -5,13 +5,18 @@
  */
 package com.mycompany.crudinterfaz;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -35,6 +40,8 @@ public class CartaController implements Initializable {
     private TableColumn<Carta, String> colNombre;
     @FXML
     private TableColumn<Carta, Double> colPrecio;
+    @FXML
+    private Button btnSalir;
 
     /**
      * Initializes the controller class.
@@ -51,11 +58,22 @@ public class CartaController implements Initializable {
         
         Session s = HibernateUtil.getSessionFactory().openSession();
         
-        Query q = s.createQuery("FROM Pedido", Pedido.class);
+        Query q = s.createQuery("FROM Carta", Carta.class);
         ArrayList<Carta> resultado = (ArrayList<Carta>) q.list();
         
         contenido.addAll(resultado);
         
     }    
+
+    @FXML
+    private void salir(ActionEvent event) {
+        
+        try {
+            App.setRoot("pedidos");
+        } catch (IOException ex) {
+            Logger.getLogger(CartaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
 }

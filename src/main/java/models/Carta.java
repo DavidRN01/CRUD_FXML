@@ -30,17 +30,14 @@ public class Carta implements Serializable {
     private String nombre;
     private double precio;
     
-    @OneToMany( mappedBy="carta", fetch=FetchType.EAGER)
-    private List<Pedido> pedidos;
 
     public Carta() {
     }
 
-    public Carta(Long id, String nombre, double precio, List<Pedido> pedidos) {
+    public Carta(Long id, String nombre, double precio) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
-        this.pedidos = pedidos;
     }
 
     public Long getId() {
@@ -67,18 +64,12 @@ public class Carta implements Serializable {
         this.precio = precio;
     }
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
-
     @Override
     public String toString() {
-        return "Carta{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", pedidos=" + pedidos + '}';
+        return "Carta{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + '}';
     }
+
+
     
     
     
