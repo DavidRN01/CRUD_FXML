@@ -10,8 +10,11 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -65,21 +68,13 @@ public class PedidosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        ObservableList<Pedido> contenido = FXCollections.observableArrayList();
-        tabla.setItems(contenido);
-        
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         
-        Session s = HibernateUtil.getSessionFactory().openSession();
-        
-        Query q = s.createQuery("FROM Pedido", Pedido.class);
-        ArrayList<Pedido> resultado = (ArrayList<Pedido>) q.list();
-        
-        contenido.addAll(resultado);
+        actualizar();
         
     }    
 
@@ -114,12 +109,6 @@ public class PedidosController implements Initializable {
         ObservableList<Pedido> contenido = FXCollections.observableArrayList();
         tabla.setItems(contenido);
         
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
-        
         Session s = HibernateUtil.getSessionFactory().openSession();
         Query q = s.createQuery("FROM Pedido p WHERE p.estado = 'SIN ENTREGAR' AND p.fecha = :fecha", Pedido.class);
         q.setParameter("fecha", fechaActual);
@@ -132,21 +121,7 @@ public class PedidosController implements Initializable {
     @FXML
     private void listarTodo(ActionEvent event) {
         
-        ObservableList<Pedido> contenido = FXCollections.observableArrayList();
-        tabla.setItems(contenido);
-        
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        colPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
-        
-        Session s = HibernateUtil.getSessionFactory().openSession();
-        
-        Query q = s.createQuery("FROM Pedido", Pedido.class);
-        ArrayList<Pedido> resultado = (ArrayList<Pedido>) q.list();
-        
-        contenido.addAll(resultado);
+        actualizar();
         
     }
 
@@ -162,7 +137,7 @@ public class PedidosController implements Initializable {
         s.update(pedido);
         t.commit();
         
-        
+        actualizar();
         
     }
 
@@ -177,10 +152,23 @@ public class PedidosController implements Initializable {
         s.remove(pedido);
         t.commit();
         
+        actualizar();
+        
     }
 
     @FXML
     private void seleccionElemento(MouseEvent event) {
+    }
+    
+    private void actualizar() {
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        ObservableList<Pedido> contenido = FXCollections.observableArrayList();
+        tabla.setItems(contenido);
+        
+        Query q = s.createQuery("FROM Pedido", Pedido.class);
+        ArrayList<Pedido> resultado = (ArrayList<Pedido>) q.list();
+        
+        contenido.addAll(resultado);
     }
     
 }
