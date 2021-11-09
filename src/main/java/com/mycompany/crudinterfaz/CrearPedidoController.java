@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -51,6 +52,8 @@ public class CrearPedidoController implements Initializable {
     private TableColumn<Carta, String> colNombre;
     @FXML
     private TableColumn<Carta, Double> colPrecio;
+    @FXML
+    private Label lblSeleccion;
 
     /**
      * Initializes the controller class.
@@ -112,6 +115,13 @@ public class CrearPedidoController implements Initializable {
             Logger.getLogger(CrearPedidoController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @FXML
+    private void escribir(MouseEvent event) {
+        
+        lblSeleccion.setText(tabla.getSelectionModel().getSelectedItem().getNombre());
+        
     }
 
 }

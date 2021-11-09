@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.crudinterfaz.CrearPedidoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="ventana" stylesheets="@../../../styles/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.crudinterfaz.CrearPedidoController">
    <center>
-      <TableView fx:id="tabla" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tabla" onMouseClicked="#escribir" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="colId" prefWidth="75.0" text="Id" />
           <TableColumn fx:id="colNombre" prefWidth="75.0" text="Nombre" />
@@ -21,12 +27,68 @@
       </TableView>
    </center>
    <bottom>
-      <FlowPane prefHeight="0.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <right>
+            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" styleClass="botonCancelar" stylesheets="@../../../styles/estilos.css" text="Cancelar" BorderPane.alignment="CENTER" />
+         </right>
+         <center>
+            <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="10.0" prefHeight="46.0" prefWidth="350.0" BorderPane.alignment="TOP_CENTER">
+               <children>
+                  <Label text="Nombre para el pedido:">
+                     <FlowPane.margin>
+                        <Insets />
+                     </FlowPane.margin>
+                     <font>
+                        <Font name="Cooper Black" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtNombre" />
+               </children>
+            </FlowPane>
+         </center>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+         <left>
+            <FlowPane prefHeight="0.0" prefWidth="120.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnAñadir" mnemonicParsing="false" onAction="#añadir" styleClass="boton" stylesheets="@../../../styles/estilos.css" text="Añadir" />
+                  <ImageView fitHeight="46.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../aceptar.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </FlowPane>
+         </left>
+      </BorderPane>
+   </bottom>
+   <top>
+      <FlowPane BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnAñadir" mnemonicParsing="false" onAction="#añadir" text="Añadir" />
-            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#cancelar" text="Cancelar" />
-            <TextField fx:id="txtNombre" />
+            <ImageView fitHeight="84.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../pulgar_arriba.png" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="84.0" prefWidth="499.0">
+               <children>
+                  <Label text="Elemento seleccionado:">
+                     <font>
+                        <Font name="Cooper Black" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblSeleccion">
+                     <font>
+                        <Font name="Cooper Black" size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
          </children>
       </FlowPane>
-   </bottom>
+   </top>
 </BorderPane>

@@ -1,0 +1,15 @@
+.ventana {
+    -fx-background-image:url(@../../../fondo.jpg);
+}
+
+.boton {
+    -fx-background-color:cadetblue;
+    -fx-text-fill:white;
+    -fx-padding:5px 10px;
+}
+
+.botonCancelar {
+    -fx-background-color:tomato;
+    -fx-text-fill:black;
+    -fx-padding:5px 10px;
+}

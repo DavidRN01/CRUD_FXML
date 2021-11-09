@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
 
-
-<BorderPane prefHeight="585.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.crudinterfaz.PedidosController">
+<BorderPane prefHeight="585.0" prefWidth="790.0" styleClass="ventana" stylesheets="@../../../styles/estilos.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.crudinterfaz.PedidosController">
    <center>
       <TableView fx:id="tabla" onMouseClicked="#seleccionElemento" prefHeight="200.0" prefWidth="200.0">
         <columns>
@@ -25,13 +28,38 @@
    <bottom>
       <FlowPane alignment="CENTER" hgap="20.0" prefHeight="48.0" prefWidth="791.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnCarta" mnemonicParsing="false" onAction="#mostrarCarta" text="Ver carta" />
-            <Button fx:id="btnCrearPedido" mnemonicParsing="false" onAction="#crearPedido" text="Crear pedido" />
-            <Button fx:id="btnListarHoy" mnemonicParsing="false" onAction="#listarHoy" text="Ver pedidos de hoy" />
-            <Button fx:id="btnListarTodo" mnemonicParsing="false" onAction="#listarTodo" text="Ver todos los pedidos" />
-            <Button fx:id="btnRecogido" mnemonicParsing="false" onAction="#marcarRecogido" text="Marcar recogido" />
-            <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#borrarPedido" text="Eliminar pedido" />
+            <Button fx:id="btnCarta" mnemonicParsing="false" onAction="#mostrarCarta" styleClass="boton" stylesheets="@../../../styles/estilos.css" text="Ver carta" />
+            <Button fx:id="btnCrearPedido" mnemonicParsing="false" onAction="#crearPedido" styleClass="boton" text="Crear pedido" />
+            <Button fx:id="btnListarHoy" mnemonicParsing="false" onAction="#listarHoy" styleClass="boton" text="Ver pedidos de hoy" />
+            <Button fx:id="btnListarTodo" mnemonicParsing="false" onAction="#listarTodo" styleClass="boton" text="Ver todos los pedidos" />
+            <Button fx:id="btnRecogido" mnemonicParsing="false" onAction="#marcarRecogido" styleClass="boton" text="Marcar recogido" />
+            <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#borrarPedido" styleClass="botonCancelar" stylesheets="@../../../styles/estilos.css" text="Eliminar pedido" />
          </children>
       </FlowPane>
    </bottom>
+   <top>
+      <BorderPane BorderPane.alignment="CENTER">
+         <center>
+            <Label text="Encargos de Bocatas" textAlignment="CENTER">
+               <font>
+                  <Font name="Cooper Black" size="37.0" />
+               </font>
+            </Label>
+         </center>
+         <left>
+            <ImageView fitHeight="137.0" fitWidth="242.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../../sandwich.PNG" />
+               </image>
+            </ImageView>
+         </left>
+         <right>
+            <ImageView fitHeight="140.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../../../coffee.PNG" />
+               </image>
+            </ImageView>
+         </right>
+      </BorderPane>
+   </top>
 </BorderPane>
