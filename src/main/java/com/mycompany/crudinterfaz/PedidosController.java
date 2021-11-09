@@ -24,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import models.Pedido;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 /**
@@ -95,6 +96,13 @@ public class PedidosController implements Initializable {
 
     @FXML
     private void crearPedido(ActionEvent event) {
+        
+        try {
+            App.setRoot("crearPedido");
+        } catch (IOException ex) {
+            Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     @FXML
@@ -144,6 +152,16 @@ public class PedidosController implements Initializable {
 
     @FXML
     private void marcarRecogido(ActionEvent event) {
+        
+        Pedido pedidoSeleccionado = tabla.getSelectionModel().getSelectedItem();
+        
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        Transaction t = s.beginTransaction();
+        Pedido pedido = s.load(Pedido.class, pedidoSeleccionado.getId());
+        pedido.setEstado("RECOGIDO");
+        s.update(pedido);
+        t.commit();
+        
     }
 
     @FXML

@@ -31,17 +31,21 @@ public class Pedido implements Serializable {
     private double precio;
     private Date fecha;
     private String estado;
+    private Long producto_id;
 
     public Pedido() {
     }
 
-    public Pedido(Long id, String nombre, double precio, Date fecha, String estado) {
+    public Pedido(Long id, String nombre, double precio, Date fecha, String estado, Long producto_id) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.fecha = fecha;
         this.estado = estado;
+        this.producto_id = producto_id;
     }
+
+    
 
     public Long getId() {
         return id;
@@ -83,12 +87,17 @@ public class Pedido implements Serializable {
         this.estado = estado;
     }
 
-    @Override
-    public String toString() {
-        return "Pedido{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", fecha=" + fecha + ", estado=" + estado + '}';
+    public Long getProducto_id() {
+        return producto_id;
     }
 
+    public void setProducto_id(Long producto_id) {
+        this.producto_id = producto_id;
+    }
 
-    
+    @Override
+    public String toString() {
+        return "Pedido{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", fecha=" + fecha + ", estado=" + estado + ", producto_id=" + producto_id + '}';
+    }
     
 }
