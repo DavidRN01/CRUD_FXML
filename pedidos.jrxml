@@ -7,9 +7,10 @@ MDkxMjA4MTM7]]>
 	</property>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="CRUD"/>
 	<property name="com.jaspersoft.studio.report.description" value=""/>
-	<parameter name="fecha" class="java.sql.Date"/>
+	<parameter name="fechaDesde" class="java.sql.Date"/>
+	<parameter name="fechaHasta" class="java.sql.Date"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT * FROM cruddesayunos.pedidos WHERE fecha = $P{fecha}]]>
+		<![CDATA[SELECT * FROM cruddesayunos.pedidos WHERE (fecha >= $P{fechaDesde} AND fecha <= $P{fechaHasta})]]>
 	</queryString>
 	<field name="id" class="java.lang.Integer">
 		<property name="com.jaspersoft.studio.field.name" value="id"/>

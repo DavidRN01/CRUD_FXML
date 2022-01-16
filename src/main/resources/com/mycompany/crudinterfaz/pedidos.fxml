@@ -36,6 +36,7 @@
             <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#borrarPedido" styleClass="botonCancelar" stylesheets="@../../../styles/estilos.css" text="Eliminar pedido" />
             <Button fx:id="btnInformePedidos" mnemonicParsing="false" onAction="#informePedidos" styleClass="boton" stylesheets="@../../../styles/estilos.css" text="Ver informe de pedidos" />
             <Button fx:id="btnInformeCarta" mnemonicParsing="false" onAction="#informeCarta" styleClass="boton" stylesheets="@../../../styles/estilos.css" text="Ver informe de la carta" />
+            <Button fx:id="btnHistorial" mnemonicParsing="false" onAction="#historial" styleClass="boton" stylesheets="@../../../styles/estilos.css" text="Ver historial" />
          </children>
       </FlowPane>
    </bottom>

@@ -79,6 +79,8 @@ public class PedidosController implements Initializable {
     private Button btnInformePedidos;
     @FXML
     private Button btnInformeCarta;
+    @FXML
+    private Button btnHistorial;
 
     /**
      * Initializes the controller class.
@@ -200,7 +202,8 @@ public class PedidosController implements Initializable {
             java.sql.Date fechaActual = new java.sql.Date(ahora.getTime());
             
             var parameters = new HashMap();
-            parameters.put("fecha", fechaActual);
+            parameters.put("fechaDesde", fechaActual);
+            parameters.put("fechaHasta", fechaActual);
             
             JasperReport informe = JasperCompileManager.compileReport(archivo);
             JasperPrint impresion = JasperFillManager.fillReport(informe, parameters, ConexionJasper.getConexion());
@@ -256,6 +259,17 @@ public class PedidosController implements Initializable {
             exportador.exportReport();
             
         } catch (JRException ex) {
+            Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void historial(ActionEvent event) {
+        
+        try {
+            App.setRoot("informeFechas");
+        } catch (IOException ex) {
             Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
