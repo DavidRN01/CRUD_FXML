@@ -6,8 +6,10 @@ module com.mycompany.fxmllogin {
     requires java.naming;
     requires java.sql;
     requires java.persistence;
+    requires jasperreports;
+    requires javafx.swing;
 
-    opens com.mycompany.crudinterfaz to javafx.fxml, org.hibernate.orm.core, java.sql;
+    opens com.mycompany.crudinterfaz to javafx.fxml, org.hibernate.orm.core, java.sql, javafx.swing;
     opens models;
     exports com.mycompany.crudinterfaz;
 }

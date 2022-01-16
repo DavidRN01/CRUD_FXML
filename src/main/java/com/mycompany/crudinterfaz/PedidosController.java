@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,6 +28,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import models.Pedido;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+import net.sf.jasperreports.swing.JRViewer;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -64,6 +75,10 @@ public class PedidosController implements Initializable {
     private TableColumn<Pedido, String> colEstado;
     @FXML
     private Label lblNumero;
+    @FXML
+    private Button btnInformePedidos;
+    @FXML
+    private Button btnInformeCarta;
 
     /**
      * Initializes the controller class.
@@ -78,17 +93,6 @@ public class PedidosController implements Initializable {
         colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
         
         actualizar();
-        
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    actualizar();
-                });
-            }
-        };
-        timer.scheduleAtFixedRate(task, 0, 5000);
         
     }    
 
@@ -146,6 +150,8 @@ public class PedidosController implements Initializable {
         
         actualizar();
         
+        s.close();
+        
     }
 
     @FXML
@@ -160,6 +166,8 @@ public class PedidosController implements Initializable {
         t.commit();
         
         actualizar();
+        
+        s.close();
         
     }
 
@@ -177,6 +185,80 @@ public class PedidosController implements Initializable {
         lblNumero.setText("Hay "+resultado.size()+" pedidos");
         
         contenido.addAll(resultado);
+        
+        s.close();
+    }
+
+    @FXML
+    private void informePedidos(ActionEvent event) {
+        
+        String archivo = "pedidos.jrxml";
+        
+        try {
+            
+            java.util.Date ahora = new java.util.Date();
+            java.sql.Date fechaActual = new java.sql.Date(ahora.getTime());
+            
+            var parameters = new HashMap();
+            parameters.put("fecha", fechaActual);
+            
+            JasperReport informe = JasperCompileManager.compileReport(archivo);
+            JasperPrint impresion = JasperFillManager.fillReport(informe, parameters, ConexionJasper.getConexion());
+        
+            JRViewer visor = new JRViewer(impresion);
+            javax.swing.JFrame ventanaInforme = new javax.swing.JFrame("Informe");
+            ventanaInforme.getContentPane().add(visor);
+            
+            ventanaInforme.pack();
+            ventanaInforme.setVisible(true);
+            
+            var exportador = new JRPdfExporter();
+            exportador.setExporterInput(new SimpleExporterInput(impresion));
+            exportador.setExporterOutput(new SimpleOutputStreamExporterOutput("informe_pedidos.pdf"));
+            
+            var configuracion = new SimplePdfExporterConfiguration();
+            exportador.setConfiguration(configuracion);
+            
+            exportador.exportReport();
+            
+        } catch (JRException ex) {
+            Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+
+    @FXML
+    private void informeCarta(ActionEvent event) {
+        
+        String archivo = "carta.jrxml";
+        
+        try {
+            
+            var parameters = new HashMap();
+            
+            JasperReport informe = JasperCompileManager.compileReport(archivo);
+            JasperPrint impresion = JasperFillManager.fillReport(informe, parameters, ConexionJasper.getConexion());
+        
+            JRViewer visor = new JRViewer(impresion);
+            javax.swing.JFrame ventanaInforme = new javax.swing.JFrame("Informe");
+            ventanaInforme.getContentPane().add(visor);
+            
+            ventanaInforme.pack();
+            ventanaInforme.setVisible(true);
+            
+            var exportador = new JRPdfExporter();
+            exportador.setExporterInput(new SimpleExporterInput(impresion));
+            exportador.setExporterOutput(new SimpleOutputStreamExporterOutput("informe_carta.pdf"));
+            
+            var configuracion = new SimplePdfExporterConfiguration();
+            exportador.setConfiguration(configuracion);
+            
+            exportador.exportReport();
+            
+        } catch (JRException ex) {
+            Logger.getLogger(PedidosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
 }

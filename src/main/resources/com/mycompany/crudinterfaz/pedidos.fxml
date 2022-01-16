@@ -34,6 +34,8 @@
             <Button fx:id="btnListarTodo" mnemonicParsing="false" onAction="#listarTodo" styleClass="boton" text="Ver todos los pedidos" />
             <Button fx:id="btnRecogido" mnemonicParsing="false" onAction="#marcarRecogido" styleClass="boton" text="Marcar recogido" />
             <Button fx:id="btnBorrar" mnemonicParsing="false" onAction="#borrarPedido" styleClass="botonCancelar" stylesheets="@../../../styles/estilos.css" text="Eliminar pedido" />
+            <Button fx:id="btnInformePedidos" mnemonicParsing="false" onAction="#informePedidos" styleClass="boton" stylesheets="@../../../styles/estilos.css" text="Ver informe de pedidos" />
+            <Button fx:id="btnInformeCarta" mnemonicParsing="false" onAction="#informeCarta" styleClass="boton" stylesheets="@../../../styles/estilos.css" text="Ver informe de la carta" />
          </children>
       </FlowPane>
    </bottom>
