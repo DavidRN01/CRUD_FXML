@@ -77,11 +77,11 @@ MDkxMjA4MTM7]]>
 			</staticText>
 			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="90" height="89" uuid="81353856-3a21-466b-9b8f-aac73fb2a892"/>
-				<imageExpression><![CDATA["kebab.png"]]></imageExpression>
+				<imageExpression><![CDATA["src/main/resources/kebab.png"]]></imageExpression>
 			</image>
 			<image onErrorType="Blank">
 				<reportElement x="470" y="0" width="80" height="80" uuid="9f7af4d2-7dd0-407d-bece-c4e69e636db6"/>
-				<imageExpression><![CDATA["deusex.png"]]></imageExpression>
+				<imageExpression><![CDATA["src/main/resources/deusex.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

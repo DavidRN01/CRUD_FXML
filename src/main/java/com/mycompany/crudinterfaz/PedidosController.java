@@ -8,7 +8,9 @@ package com.mycompany.crudinterfaz;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -201,9 +203,12 @@ public class PedidosController implements Initializable {
             java.util.Date ahora = new java.util.Date();
             java.sql.Date fechaActual = new java.sql.Date(ahora.getTime());
             
+            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+            java.sql.Date fechaActualSinhoras = new java.sql.Date(fechaActual.getTime());
+            
             var parameters = new HashMap();
-            parameters.put("fechaDesde", fechaActual);
-            parameters.put("fechaHasta", fechaActual);
+            parameters.put("fechaDesde", fechaActualSinhoras);
+            parameters.put("fechaHasta", fechaActualSinhoras);
             
             JasperReport informe = JasperCompileManager.compileReport(archivo);
             JasperPrint impresion = JasperFillManager.fillReport(informe, parameters, ConexionJasper.getConexion());

@@ -51,11 +51,11 @@ FROM cruddesayunos.carta]]>
 			</staticText>
 			<image onErrorType="Blank">
 				<reportElement x="470" y="0" width="90" height="80" uuid="29e91ce1-6adf-4cb3-be09-77533e955ad2"/>
-				<imageExpression><![CDATA["giorno.png"]]></imageExpression>
+				<imageExpression><![CDATA["src/main/resources/giorno.png"]]></imageExpression>
 			</image>
 			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="90" height="80" uuid="b6538ecb-57d7-4935-8f97-17a93c448bbe"/>
-				<imageExpression><![CDATA["gordon.png"]]></imageExpression>
+				<imageExpression><![CDATA["src/main/resources/gordon.png"]]></imageExpression>
 			</image>
 		</band>
 	</title>

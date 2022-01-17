@@ -7,7 +7,7 @@ package com.mycompany.crudinterfaz;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -56,18 +56,22 @@ public class InformeFechasController implements Initializable {
     private void aceptar(ActionEvent event) {
         
         LocalDate fechaDesde = dateDesde.getValue();
-        LocalDate fechaHasta = dateDesde.getValue();
+        LocalDate fechaHasta = dateHasta.getValue();
         
-        Date fechaDesdeSQL = Date.valueOf(fechaDesde);
-        Date fechaHastaSQL = Date.valueOf(fechaHasta);
+        java.sql.Date fechaDesdeSQL = java.sql.Date.valueOf(fechaDesde);
+        java.sql.Date fechaHastaSQL = java.sql.Date.valueOf(fechaHasta);
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+        java.sql.Date fechaDesdeSinhoras = new java.sql.Date(fechaDesdeSQL.getTime());
+        java.sql.Date fechaHastaSinhoras = new java.sql.Date(fechaHastaSQL.getTime());
         
         String archivo = "pedidos.jrxml";
         
         try {
             
             var parameters = new HashMap();
-            parameters.put("fechaDesde", fechaDesdeSQL);
-            parameters.put("fechaHasta", fechaHastaSQL);
+            parameters.put("fechaDesde", fechaDesdeSinhoras);
+            parameters.put("fechaHasta", fechaHastaSinhoras);
             
             JasperReport informe = JasperCompileManager.compileReport(archivo);
             JasperPrint impresion = JasperFillManager.fillReport(informe, parameters, ConexionJasper.getConexion());
